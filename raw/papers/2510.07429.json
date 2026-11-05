@@ -1,0 +1,28 @@
+{
+  "arxiv": "2510.07429",
+  "version": 1,
+  "title": "Learning to Route LLMs from Bandit Feedback: One Policy, Many Trade-offs",
+  "authors": [
+    "Wang Wei",
+    "Tiankai Yang",
+    "Hongjie Chen",
+    "Yue Zhao",
+    "Franck Dernoncourt",
+    "Ryan A. Rossi",
+    "Hoda Eldardiry"
+  ],
+  "abstract": "Efficient use of large language models (LLMs) is critical for deployment at scale: without adaptive routing, systems either overpay for strong models or risk poor performance from weaker ones. Selecting the right LLM for each query is fundamentally an online decision problem: models differ in strengths, prices fluctuate, and users value accuracy and cost differently. Yet most routers are trained offline with labels for all candidate models, an assumption that breaks in deployment, where only the outcome of the chosen model is observed. We bridge this gap with BaRP, a Bandit-feedback Routing with Preferences approach that trains under the same partial-feedback restriction as deployment, while supporting preference-tunable inference: operators can dial the performance/cost trade-off at test time without retraining. Framed as a contextual bandit over prompt features and a user preference vector, our method simulates an online feedback setting during training and adapts its routing decisions to each new prompt, rather than depending on full-information offline supervision. Comprehensive experiments show that our method consistently outperforms strong offline routers by at least 12.46% and the largest LLM by at least 2.45%, and generalizes robustly for unseen tasks.",
+  "published": "2025-10-08",
+  "updated": "2025-10-08",
+  "year": 2025,
+  "primary_category": "cs.LG",
+  "categories": [
+    "cs.LG"
+  ],
+  "comment": "16 pages, 3 figures",
+  "journal_ref": null,
+  "doi": null,
+  "url": "https://arxiv.org/abs/2510.07429",
+  "pdf_url": "https://arxiv.org/pdf/2510.07429",
+  "fetched": "2026-11-04"
+}

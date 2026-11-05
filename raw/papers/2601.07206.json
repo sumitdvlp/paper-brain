@@ -1,0 +1,33 @@
+{
+  "arxiv": "2601.07206",
+  "version": 1,
+  "title": "LLMRouterBench: A Massive Benchmark and Unified Framework for LLM Routing",
+  "authors": [
+    "Hao Li",
+    "Yiqun Zhang",
+    "Zhaoyan Guo",
+    "Chenxu Wang",
+    "Shengji Tang",
+    "Qiaosheng Zhang",
+    "Yang Chen",
+    "Biqing Qi",
+    "Peng Ye",
+    "Lei Bai",
+    "Zhen Wang",
+    "Shuyue Hu"
+  ],
+  "abstract": "Large language model (LLM) routing assigns each query to the most suitable model from an ensemble. We introduce LLMRouterBench, a large-scale benchmark and unified framework for LLM routing. It comprises over 400K instances from 21 datasets and 33 models. Moreover, it provides comprehensive metrics for both performance-oriented routing and performance-cost trade-off routing, and integrates 10 representative routing baselines. Using LLMRouterBench, we systematically re-evaluate the field. While confirming strong model complementarity-the central premise of LLM routing-we find that many routing methods exhibit similar performance under unified evaluation, and several recent approaches, including commercial routers, fail to reliably outperform a simple baseline. Meanwhile, a substantial gap remains to the Oracle, driven primarily by persistent model-recall failures. We further show that backbone embedding models have limited impact, that larger ensembles exhibit diminishing returns compared to careful model curation, and that the benchmark also enables latency-aware analysis. All code and data are available at https://github.com/ynulihao/LLMRouterBench.",
+  "published": "2026-01-12",
+  "updated": "2026-01-12",
+  "year": 2026,
+  "primary_category": "cs.AI",
+  "categories": [
+    "cs.AI"
+  ],
+  "comment": null,
+  "journal_ref": null,
+  "doi": null,
+  "url": "https://arxiv.org/abs/2601.07206",
+  "pdf_url": "https://arxiv.org/pdf/2601.07206",
+  "fetched": "2026-11-04"
+}

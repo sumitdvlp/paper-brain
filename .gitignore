@@ -1,0 +1,11 @@
+# PDFs can be re-fetched from raw/papers/*.json; delete this line to version them
+raw/papers/*.pdf
+
+.DS_Store
+.obsidian/workspace*
+.obsidian/cache
+*.pyc
+__pycache__/
+.venv/
+node_modules/
+*.graphml

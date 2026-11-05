@@ -1,0 +1,30 @@
+{
+  "arxiv": "2603.20895",
+  "version": 3,
+  "title": "LLM Router: Rethinking Routing with Prefill Activations",
+  "authors": [
+    "Tanay Varshney",
+    "Annie Surla",
+    "Michelle Xu",
+    "Gomathy Venkata Krishnan",
+    "Maximilian Jeblick",
+    "David Austin",
+    "Neal Vaidya",
+    "Davide Onofrio"
+  ],
+  "abstract": "Existing routers rely on semantic query features or handcrafted features, which often fail to capture model-specific failures or intrinsic task difficulty. We instead route using internal LLM activations, specifically the residual stream. Our key idea, Encoder-Target Decoupling, separates the model that produces the predictive signal (the Encoder) from the model whose correctness is being estimated (the Target), allowing open-weight encoders to predict the performance of closed-source target models. We evaluate layerwise geometric probes, finding that Fisher Separability ($J$) effectively identifies informative layers, supported by Effective Dimensionality ($d_{\\mathrm{eff}}$) diagnostics. We then utilize a SharedTrunkNet, a joint multi-output MLP that predicts simultaneous correctness probabilities across candidate models using concatenated prefill features. In our experiments, SharedTrunkNet consistently outperforms semantic baselines. At its best, SharedTrunkNet closes 45.58% of the gap between the strongest standalone model and the oracle while achieving 74.31% cost savings relative to the most expensive model. These results demonstrate that prefill activations provide a robust routing signal, establishing activation-based routing as a high-performance alternative to purely semantic selection.",
+  "published": "2026-03-21",
+  "updated": "2026-08-11",
+  "year": 2026,
+  "primary_category": "cs.CL",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "comment": null,
+  "journal_ref": null,
+  "doi": null,
+  "url": "https://arxiv.org/abs/2603.20895",
+  "pdf_url": "https://arxiv.org/pdf/2603.20895",
+  "fetched": "2026-11-04"
+}

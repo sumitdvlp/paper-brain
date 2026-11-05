@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""Print health metrics for a paper vault.
+
+Usage:
+    python3 vault_stats.py /path/to/vault
+
+Reports page counts by type, link density, orphan rate and the most connected
+pages. Track these over time: a rising orphan rate means ingestion is running
+without linking, which is the usual way a vault stops being useful.
+
+Adapted from second-brain-os (MIT): https://github.com/undefined-ui/second-brain-os
+"""
+import os
+import re
+import sys
+from collections import Counter, defaultdict
+
+LINK = re.compile(r"\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|[^\]]+)?\]\]")
+TYPE = re.compile(r"^type:\s*(\S+)", re.M)
+# Hidden folders (.claude, .obsidian, .git, .trash), the page templates and
+# the scripts folder hold instructions and tooling, not knowledge, so they are
+# never counted as pages. Same for CLAUDE.md and README.md wherever they sit.
+SKIP_DIRS = {"node_modules", "raw", "templates", "scripts", "examples", "output"}
+SKIP_FILES = {"CLAUDE.md", "README.md"}
+
+
+def is_page(name):
+    return name.endswith(".md") and name not in SKIP_FILES
+
+
+def prune(dirnames):
+    dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith(".")]
+
+
+def main():
+    if len(sys.argv) != 2:
+        sys.exit("usage: vault_stats.py /path/to/vault")
+    vault = sys.argv[1]
+
+    pages, types = {}, Counter()
+    for dirpath, dirnames, filenames in os.walk(vault):
+        prune(dirnames)
+        for name in filenames:
+            if is_page(name):
+                path = os.path.join(dirpath, name)
+                with open(path, encoding="utf-8", errors="replace") as fh:
+                    text = fh.read()
+                pages[path] = text
+                m = TYPE.search(text)
+                types[m.group(1) if m else "untyped"] += 1
+
+    if not pages:
+        sys.exit("no markdown files found")
+
+    stems = {os.path.splitext(os.path.basename(p))[0].lower(): p for p in pages}
+    indeg = defaultdict(int)
+    total = 0
+    for path, text in pages.items():
+        for target in LINK.findall(text):
+            dest = stems.get(target.strip().lower())
+            if dest and dest != path:
+                indeg[dest] += 1
+                total += 1
+
+    # Only wiki pages can be orphans; project files and logs are entry points.
+    wiki_pages = [p for p in pages if os.path.relpath(p, vault).split(os.sep)[0] == "wiki"]
+    orphans = [p for p in wiki_pages if indeg[p] == 0 and not p.endswith(("index.md", "log.md"))]
+    words = sum(len(t.split()) for t in pages.values())
+
+    print(f"pages          {len(pages)}")
+    for t, c in types.most_common():
+        print(f"  {t:<12} {c}")
+    print(f"words          {words:,}")
+    print(f"links          {total}")
+    print(f"avg degree     {total / len(pages):.2f}")
+    print(f"orphan rate    {100 * len(orphans) / max(len(wiki_pages), 1):.1f}% of wiki pages")
+    print("\nmost linked:")
+    for path, n in sorted(indeg.items(), key=lambda kv: -kv[1])[:10]:
+        print(f"  {n:>4}  {os.path.relpath(path, vault)}")
+
+
+if __name__ == "__main__":
+    main()
